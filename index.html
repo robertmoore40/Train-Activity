@@ -99,6 +99,7 @@ appId: "1:1032330894268:web:a4b3a67d610ca469e1a9b9"
 var database = firebase.database();
 
 $("#Add-Train-Submit").on("click", function(event) {
+    event.preventDefault();
 
 // var inputForm = ;
 var trainName =$("#train-Name-Input").val().trim();
@@ -106,7 +107,30 @@ var trainDestination =$("#destination-Input").val().trim();
 var trainFirstTime =$("#firstTrainTime-Input").val().trim();
 var trainFrequency = $("#frequency-Input").val().trim();
 
+
+// New variable train form
+var addTrain = {
+name : trainName ,
+destination : trainDestination,
+firstTime : trainFirstTime ,
+frequency : trainFrequency,
 }
+
+database.ref().push(addTrain);
+  
+  console.log(addTrain.name);
+  console.log(addTrain.destination);
+  console.log(addTrain.firstTime);
+  console.log(addTrain.frequency);
+
+  //Clear all of text-boxes
+  $("#train-Name-Input").val("");
+  $("#destination-Input").val("");
+  $("#firstTrainTime-Input").val("");
+  $("#frequency-Input").val("");
+
+});
+
 
 
 </script>    
