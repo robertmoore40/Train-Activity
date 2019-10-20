@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Train Scheduling with Firebase</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+
 </head>
 <body>
 
@@ -17,7 +21,7 @@
         -next arrival
         -minutes away -->
         <h3>Current Train Schedule</h3>
-        <table>
+        <table id="tabulatedTrainSchedule">
                 <tr>
                   <th>Train Name</th>
                   <th>Destination</th>
@@ -80,6 +84,10 @@
         <label for="frequency-Input">Frequency(min)</label>
         <input type="text" id="frequency-input">
         <button id="Add-Train-Submit">Submit</button>
+
+        <!-- change to input type=number -->
+        <!-- you can still type into it but it will only accept numbers -->
+
 </div>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -94,7 +102,9 @@ projectId: "big-rob-s-first-project",
 storageBucket: "big-rob-s-first-project.appspot.com",
 messagingSenderId: "1032330894268",
 appId: "1:1032330894268:web:a4b3a67d610ca469e1a9b9"
+
 }
+firebase.initializeApp(config);
 
 var database = firebase.database();
 
@@ -102,10 +112,10 @@ $("#Add-Train-Submit").on("click", function(event) {
     event.preventDefault();
 
 // var inputForm = ;
-var trainName =$("#train-Name-Input").val().trim();
-var trainDestination =$("#destination-Input").val().trim();
-var trainFirstTime =$("#firstTrainTime-Input").val().trim();
-var trainFrequency = $("#frequency-Input").val().trim();
+var trainName =$("#train-Name-Input").val();
+var trainDestination =$("#destination-Input").val();
+var trainFirstTime =$("#firstTrainTime-Input").val();
+var trainFrequency = $("#frequency-Input").val();
 
 
 // New variable train form
@@ -128,6 +138,18 @@ database.ref().push(addTrain);
   $("#destination-Input").val("");
   $("#firstTrainTime-Input").val("");
   $("#frequency-Input").val("");
+
+  //Create the new row
+var addTrainRow = $("<tr>").append(
+                  $("<td>").text(trainName),
+                  $("<td>").text(trainDestination),
+                  $("<td>").text(trainFrequency),
+                //   $("<td>").text(Next Arrival),
+                //   $("<td>").text(Minutes Away)
+              );
+  
+              //Append the new row to the table
+              $("#tabulatedTrainSchedule").append(addTrainRow);
 
 });
 
