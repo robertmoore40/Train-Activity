@@ -171,42 +171,6 @@ database.ref().on("child_added", function(childSnapshot) {
 
   var nextTrainTimeMilitary = moment().add(minutesTillNextTrain, "minutes").format("HH:mm");
   
-//   var trainFrequencyPretty = moment.unix(trainFrequency).format("HH/mm");
-//   var trainMinutes = moment().diff(moment(trainFrequency, "X"), "minutes");
-//   console.log(trainMinutes);
-
-// var minutesTillNextTrain=x;
-// var trainMinutesAway=x;
-// var currentMomentTime = moment();
-// trainFirstTime = moment().format("HH:mm");
-// console.log(typeof trainFirstTime);
-// parseInt(trainFirstTime);
-// console.log(parseInt(trainFirstTime));
-// // cTime = moment().format("HH:mm");
-// cTime = moment().format("X");
-// console.log(cTime);
-// var cTimeDiff = moment().diff(moment(trainFirstTime), "X");
-
-
-// var ourXDiff = (parseInt(cTime)) - (parseInt(trainFirstTime)) ;
-// console.log(ourXDiff);
-// console.log(parseInt(ourXDiff));
-// var ourXDiff = (ourXDiff/60).toFixed(0);
-// console.log(ourXDiff);
-// debugger;
-// console.log(typeof cTimeDiff);
-// console.log(cTimeDiff);
-// console.log(parseInt(cTimeDiff));
-// console.log(trainFrequency);
-
-// var timeUntilNextTrain = ourXDiff % trainFrequency; 
-// // coming up as NaN
-
-// console.log(timeUntilNextTrain);
-// console.log(parseInt(timeUntilNextTrain));
-
-// var trainMinutesAway = parseInt(trainFrequency) - parseInt(timeUntilNextTrain);
-// var minutesTillNextTrain = moment().add(trainMinutesAway, "X").format("HH:mm");
 //   // Create the new row
   var newRow = $("<tr>").append(
     $("<td>").text(trainName),
