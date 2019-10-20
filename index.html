@@ -118,8 +118,8 @@ $("#add-train-btn").on("click", function(event) {
   var trainName = $("#train-name-input").val().trim();
   var trainDestination = $("#destination-input").val().trim();
   var trainFrequency = $("#frequency-input").val().trim();
-  var trainFirstTime = moment($("#firstTime-input").val().trim(), "HH/mm").format("X");
-  
+  var trainFirstTime = moment($("#firstTime-input").val().trim(),"HH/mm").format("X");
+  console.log(trainFirstTime);
   // Creates local "temporary" object for holding employee data
   var newTrain = {
     name: trainName,
@@ -127,18 +127,14 @@ $("#add-train-btn").on("click", function(event) {
     frequency: trainFrequency,
     firstTime: trainFirstTime
   };
-
   // Uploads employee data to the database
   database.ref().push(newTrain);
-
   // Logs everything to console
   console.log(newTrain.name);
   console.log(newTrain.destination);
   console.log(newTrain.frequency);
   console.log(newTrain.firstTime);
-
   alert("Train successfully added");
-
   // Clears all of the text-boxes
   $("#train-name-input").val("");
   $("#destination-input").val("");
@@ -167,19 +163,45 @@ database.ref().on("child_added", function(childSnapshot) {
 //   var trainMinutes = moment().diff(moment(trainFrequency, "X"), "minutes");
 //   console.log(trainMinutes);
 
-var trainNextArrival=x;
-var trainMinutesAway=x;
+// var trainNextArrival=x;
+// var trainMinutesAway=x;
 // var currentMomentTime = moment();
-
-cTime = moment().format("HH:mm");
+// trainFirstTime = moment().format("HH:mm");
+console.log(typeof trainFirstTime);
+parseInt(trainFirstTime);
+console.log(parseInt(trainFirstTime));
+// cTime = moment().format("HH:mm");
+cTime = moment().format("X");
 console.log(cTime);
+var cTimeDiff = moment().diff(moment(trainFirstTime), "X");
+
+
+var ourXDiff = (parseInt(cTime)) - (parseInt(trainFirstTime)) ;
+console.log(ourXDiff);
+console.log(parseInt(ourXDiff));
+var ourXDiff = (ourXDiff/60).toFixed(0);
+console.log(ourXDiff);
+debugger;
+console.log(typeof cTimeDiff);
+console.log(cTimeDiff);
+console.log(parseInt(cTimeDiff));
+console.log(trainFrequency);
+
+var timeUntilNextTrain = ourXDiff % trainFrequency; 
+// coming up as NaN
+
+console.log(timeUntilNextTrain);
+console.log(parseInt(timeUntilNextTrain));
+
+var trainMinutesAway = parseInt(trainFrequency) - parseInt(timeUntilNextTrain);
+var trainNextArrival = moment().add(trainMinutesAway, "X").format("HH:mm");
   // Create the new row
   var newRow = $("<tr>").append(
     $("<td>").text(trainName),
     $("<td>").text(trainDestination),
     $("<td>").text(trainFrequency),
-    $("<td>").text("calculated"),
-    $("<td>").text("calcaluted"),    
+    $("<td>").text(trainNextArrival),
+    $("<td>").text(ourXDiff),    
   );
 
   // Append the new row to the table
